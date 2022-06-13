@@ -1,0 +1,67 @@
+﻿@page "/index"
+@using System.Globalization
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<BitDatePicker @bind-Value="@selectedDate" Style="width: 300px" AllowTextInput="true" FormatDate="yyyy/MM/dd" GoToToday="امروز" Culture="CultureInfo.CurrentCulture"></BitDatePicker>
+<BitLabel>this is selected date: @selectedDate.ToString()</BitLabel>
+<br />
+
+current culture is @CultureInfo.CurrentCulture.ToString()
+
+@code {
+    private DateTimeOffset? selectedDate = new DateTimeOffset(DateTime.Now, DateTimeOffset.Now.Offset);
+
+    //public CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture("fa-IR");
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        var culture = new CultureInfo("fa-IR");// Set user culture here
+        culture.DateTimeFormat.MonthNames = new[] { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند", "" };
+        culture.DateTimeFormat.AbbreviatedMonthNames = new string[] { "فروردین", "ارديبهشت", "خرداد", "تير", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند", "" };
+        culture.DateTimeFormat.AbbreviatedDayNames = new string[] { "ی", "د", "س", "چ", "پ", "ج", "ش" };
+        culture.DateTimeFormat.DayNames = new string[] { "یکشنبه", "دوشنبه", "ﺳﻪشنبه", "چهارشنبه", "پنجشنبه", "جمعه", "شنبه" };
+        culture.DateTimeFormat.AMDesignator = "ق.ظ";
+        culture.DateTimeFormat.PMDesignator = "ب.ظ";
+        culture.DateTimeFormat.ShortDatePattern = "yyyy/MM/dd";
+        //culture.DateTimeFormat.Calendar = new PersianCalendar();
+        culture.DateTimeFormat.FirstDayOfWeek = DayOfWeek.Saturday;
+        PersianCalendar cal = new PersianCalendar();
+
+        culture.DateTimeFormat.Calendar = cal;
+        
+        var info = culture.DateTimeFormat;
+
+        var field = typeof(DateTimeFormatInfo).GetField("calendar", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        field?.SetValue(info, cal);
+        var fieldInfo = typeof(DateTimeFormatInfo).GetField("m_cultureTableRecord", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        if (fieldInfo != null)
+        {
+            object obj = fieldInfo.GetValue(info);
+            var methodInfo = obj.GetType().GetMethod("UseCurrentCalendar", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (
+                methodInfo !=
+                null)
+            {
+                var propertyInfo = cal.GetType().GetProperty("ID", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                if (
+                    propertyInfo !=
+                    null)
+                    methodInfo.Invoke(obj, new object[] { propertyInfo.GetValue(cal, null) });
+            }
+        }
+        var field1 = typeof(CultureInfo).GetField("calendar", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        field1?.SetValue(culture, cal);
+        var fieldInfo1 = typeof(CultureInfo).GetField("calendar", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        fieldInfo1?.SetValue(culture, cal);
+
+        //CultureInfo.CurrentCulture = culture;
+        //CultureInfo.CurrentUICulture = culture;
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
+        CultureInfo.CurrentCulture.DateTimeFormat = culture.DateTimeFormat;
+        CultureInfo.CurrentUICulture.DateTimeFormat = culture.DateTimeFormat;
+    }
+}

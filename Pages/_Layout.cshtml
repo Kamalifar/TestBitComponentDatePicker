@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@namespace TestBitComponentDatePicker.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="_content/Bit.Client.Web.BlazorUI/styles/bit.blazorui.min.css" rel="stylesheet" />
+    <component type="typeof(HeadOutlet)" render-mode="Server" />
+    <link href="css/js-persian-cal.css" rel="stylesheet"/>
+</head>
+<body>
+    @RenderBody()
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    
+<script src="_content/Bit.Client.Web.BlazorUI/scripts/bit.blazorui.min.js"></script>
+<script src="css/js-persian-cal.min.js"></script>
+<script>
+    //window.CallCall = (objCal1) => { 
+    //    new AMIB.persianCalendar(objCal1,{
+    //        extraInputID: 'extra',
+    //        extraInputFormat: 'YYYY/MM/DD'
+    //    },{
+    //        onchange: function() {
+    //            DotNet.invokeMethodAsync('TestBitComponentDatePicker', 'HelpMessage').then(
+    //                (date) => {
+    //                    console.log(data);
+    //                }
+    //            );
+    //        }
+    //    });
+    //}
+
+    window.CallCall = (objCal1) => { 
+        new AMIB.persianCalendar(objCal1,{
+            onchange: function() {
+                DotNet.invokeMethodAsync('TestBitComponentDatePicker', 'HelpMessage').then(
+                    (date) => {
+                        console.log(data);
+                    }
+                );
+            }
+        });
+    }
+</script>
+<script>
+    window.JsFunctionHelper = {
+        invokeDotnetStaticFunction: function () {
+            DotNet.invokeMethodAsync("TestBitComponentDatePicker", "HelpMessage").then(
+                (data) => {
+                    console.log(data);
+                }
+            );
+        }
+    };
+</script>
+<script src="_framework/blazor.server.js"></script>
+</body>
+</html>
