@@ -3,22 +3,24 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>
 
-<BitDatePicker @bind-Value="@selectedDate" Style="width: 300px" AllowTextInput="true" FormatDate="yyyy/MM/dd" GoToToday="امروز" Culture="CultureInfo.CurrentCulture"></BitDatePicker>
+current culture is @CultureInfo.CurrentCulture.ToString()
+</h1>
+
+<BitDatePicker @bind-Value="@selectedDate" Style="width: 300px" AllowTextInput="true" FormatDate="yyyy/MM/dd" GoToToday="امروز" Culture="@culture"></BitDatePicker>
 <BitLabel>this is selected date: @selectedDate.ToString()</BitLabel>
 <br />
 
-current culture is @CultureInfo.CurrentCulture.ToString()
 
 @code {
     private DateTimeOffset? selectedDate = new DateTimeOffset(DateTime.Now, DateTimeOffset.Now.Offset);
-
-    //public CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture("fa-IR");
+    //public CultureInfo culture;
+    public CultureInfo culture = CultureInfo.CreateSpecificCulture("fa-IR");
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        var culture = new CultureInfo("fa-IR");// Set user culture here
+        //culture = new CultureInfo("fa-IR");// Set user culture here
         culture.DateTimeFormat.MonthNames = new[] { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند", "" };
         culture.DateTimeFormat.AbbreviatedMonthNames = new string[] { "فروردین", "ارديبهشت", "خرداد", "تير", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند", "" };
         culture.DateTimeFormat.AbbreviatedDayNames = new string[] { "ی", "د", "س", "چ", "پ", "ج", "ش" };

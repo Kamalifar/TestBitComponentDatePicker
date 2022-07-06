@@ -30,16 +30,16 @@ app.MapFallbackToPage("/_Host");
 app.Run();
 
 
-app.Use(async (context, next) =>
-{
-    var culture = new CultureInfo("fa-IR");// Set user culture here
-    CultureInfo.CurrentCulture = culture;
-    CultureInfo.CurrentUICulture = culture;
-    CultureInfo.DefaultThreadCurrentCulture = culture;
-    CultureInfo.DefaultThreadCurrentUICulture = culture;
-    // Call the next delegate/middleware in the pipeline
-    await next();
-});
+//app.Use(async (context, next) =>
+//{
+//    var culture = new CultureInfo("fa-IR");// Set user culture here
+//    CultureInfo.CurrentCulture = culture;
+//    CultureInfo.CurrentUICulture = culture;
+//    CultureInfo.DefaultThreadCurrentCulture = culture;
+//    CultureInfo.DefaultThreadCurrentUICulture = culture;
+//    // Call the next delegate/middleware in the pipeline
+//    await next();
+//});
 
 //var localizeoptions = new RequestLocalizationOptions()
 //    .SetDefaultCulture("en-US");
