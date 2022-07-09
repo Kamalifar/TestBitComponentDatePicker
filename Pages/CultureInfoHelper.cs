@@ -5,13 +5,9 @@ namespace TestBitComponentDatePicker.Pages
 {
     public static class CultureInfoHelper
     {
-        private static readonly FieldInfo _cultureDataField =
-            typeof(TextInfo).GetField("_cultureData", BindingFlags.NonPublic | BindingFlags.Instance)!;
+        private static readonly FieldInfo _cultureDataField = typeof(TextInfo).GetField("_cultureData", BindingFlags.NonPublic | BindingFlags.Instance)!;
 
-        private static readonly FieldInfo _iReadingLayoutField =
-            Type.GetType(
-                    "System.Globalization.CultureData, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e")
-                !.GetField("_iReadingLayout", BindingFlags.NonPublic | BindingFlags.Instance)!;
+        private static readonly FieldInfo _iReadingLayoutField = Type.GetType("System.Globalization.CultureData, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e")!.GetField("_iReadingLayout", BindingFlags.NonPublic | BindingFlags.Instance)!;
 
         public static CultureInfo GetFaIrCultureByFarsiNames()
         {
@@ -19,32 +15,30 @@ namespace TestBitComponentDatePicker.Pages
 
             cultureInfo.DateTimeFormat.MonthNames = new[]
             {
-                "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند",
-                ""
-            };
+            "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند", ""
+        };
 
             cultureInfo.DateTimeFormat.AbbreviatedMonthNames = new[]
             {
-                "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند",
-                ""
-            };
+            "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند", ""
+        };
 
             cultureInfo.DateTimeFormat.MonthGenitiveNames = cultureInfo.DateTimeFormat.MonthNames;
             cultureInfo.DateTimeFormat.AbbreviatedMonthGenitiveNames = cultureInfo.DateTimeFormat.AbbreviatedMonthNames;
             cultureInfo.DateTimeFormat.DayNames = new[]
             {
-                "یکشنبه", "دوشنبه", "ﺳﻪشنبه", "چهارشنبه", "پنجشنبه", "جمعه", "شنبه"
-            };
+            "یکشنبه", "دوشنبه", "ﺳﻪشنبه", "چهارشنبه", "پنجشنبه", "جمعه", "شنبه"
+        };
 
             cultureInfo.DateTimeFormat.AbbreviatedDayNames = new[]
             {
-                "ی", "د", "س", "چ", "پ", "ج", "ش"
-            };
+            "ی", "د", "س", "چ", "پ", "ج", "ش"
+        };
 
             cultureInfo.DateTimeFormat.ShortestDayNames = new[]
             {
-                "ی", "د", "س", "چ", "پ", "ج", "ش"
-            };
+            "ی", "د", "س", "چ", "پ", "ج", "ش"
+        };
 
             cultureInfo.DateTimeFormat.AMDesignator = "ق.ظ";
             cultureInfo.DateTimeFormat.PMDesignator = "ب.ظ";
