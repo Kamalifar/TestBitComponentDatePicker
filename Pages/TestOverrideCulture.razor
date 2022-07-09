@@ -1,0 +1,25 @@
+﻿@page "/"
+
+@using System.Globalization
+@using System.Reflection
+
+<PageTitle>Bit Components Override Culture</PageTitle>
+
+<BitDatePicker @bind-Value="SelectedDate" GoToToday="برو به امروز" Style="width: 300px" FormatDate="yyyy/MM/dd hh:mm tt" Culture="CultureInfo.CurrentCulture"></BitDatePicker>
+<hr />
+
+@SelectedDate?.Date.ToLongDateString()
+
+@code {
+    DateTimeOffset? SelectedDate = new DateTime(1992, 8, 7);
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        PersianCulture culture = new PersianCulture();
+
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
+    }
+
+}
